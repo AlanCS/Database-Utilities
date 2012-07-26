@@ -1,0 +1,15 @@
+﻿<Window x:Class="DatabaseUtilities.UI.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" Height="300" Width="300">
+    <Grid>
+        <TextBlock TextWrapping="Wrap">
+            Database Utilities is a software to help with common database tasks.
+            Be more productive.
+            
+            <LineBreak /><LineBreak />
+            Find out more about the project on our <Hyperlink NavigateUri="https://github.com/AlanCS/Database-Utilities" Click="Hyperlink_Click">GitHub Repository</Hyperlink>.
+        </TextBlock>
+        
+    </Grid>
+</Window>
