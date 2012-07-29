@@ -5,7 +5,7 @@
         Icon="/DatabaseUtilities;component/Images/Tools.png" 
         SizeToContent="Manual" ResizeMode="CanResize" MaxHeight="1000"
         xmlns:core="clr-namespace:DatabaseUtilities.Core;assembly=DatabaseUtilities.Core"
-        xmlns:ui="clr-namespace:DatabaseUtilities.UI">
+        xmlns:ui="clr-namespace:DatabaseUtilities.UI" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
     <Window.Resources>
 
         <ui:VisibilityConverter x:Key="VisibilityConverter" />
@@ -37,15 +37,17 @@
                 <Border Grid.Row="0" Margin="5">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBox Grid.Row="0" x:Name="SP_Name" Text="{Binding FilterSpName, Mode=TwoWay}" />
-                        <TextBox Grid.Row="1" x:Name="SP_Column" Text="{Binding FilterSpColumn, Mode=TwoWay}" />
-                        <ListBox Grid.Row="2" x:Name="SP_List" ItemsSource="{Binding StoredProcedures}" SelectedValue="{Binding SelectedStoredProcedure, Mode=TwoWay}" SelectionChanged="SP_List_SelectionChanged" GotFocus="SP_List_GotFocus" MouseDown="SP_List_MouseDown" >
+                        <xctk:WatermarkTextBox Grid.Row="0" x:Name="SP_Name" Text="{Binding FilterSpName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter by procedure name"/>
+                        <xctk:WatermarkTextBox Grid.Row="1" x:Name="SP_Column" Text="{Binding FilterSpColumn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter by procedure input param"/>
+
+                        <ListBox MinWidth="200" Grid.Row="2" x:Name="SP_List" ItemsSource="{Binding StoredProcedures}" SelectedValue="{Binding SelectedStoredProcedure, Mode=TwoWay}" SelectionChanged="SP_List_SelectionChanged" GotFocus="SP_List_GotFocus" MouseDown="SP_List_MouseDown" >
                         </ListBox>
+                        
                     </Grid>
                 </Border>
 
@@ -57,9 +59,11 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <TextBox Grid.Row="0" x:Name="Table_Name" Text="{Binding FilterTableName, Mode=TwoWay}" />
-                        <TextBox Grid.Row="1" x:Name="Table_Column" Text="{Binding FilterTableColumn, Mode=TwoWay}" />
-                        <ListBox Grid.Row="2" x:Name="Table_List" ItemsSource="{Binding Tables}" SelectedValue="{Binding SelectedTable, Mode=TwoWay}" SelectionChanged="Table_List_SelectionChanged" GotFocus="Table_List_GotFocus" MouseDown="Table_List_MouseDown">
+                        <xctk:WatermarkTextBox Grid.Row="0" x:Name="Table_Name" Text="{Binding FilterTableName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter by table name"/>
+                        <xctk:WatermarkTextBox Grid.Row="1" x:Name="Table_Column" Text="{Binding FilterTableColumn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Watermark="Filter by table column"/>
+
+
+                        <ListBox MinWidth="200" Grid.Row="2" x:Name="Table_List" ItemsSource="{Binding Tables}" SelectedValue="{Binding SelectedTable, Mode=TwoWay}" SelectionChanged="Table_List_SelectionChanged" GotFocus="Table_List_GotFocus" MouseDown="Table_List_MouseDown">
                         </ListBox>
                     </Grid>
                 </Border>

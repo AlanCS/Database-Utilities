@@ -150,8 +150,7 @@ namespace DatabaseUtilities.Core
                 _SelectedDatabase = value;
                 RaisePropertyChanged("SelectedDatabase");
 
-                Tables.Clear();
-                StoredProcedures.Clear();
+                
 
                 ClearFilters();
 
@@ -160,15 +159,30 @@ namespace DatabaseUtilities.Core
 
                 logManagent.Write("last_opened_database", String.Format("{0}_{1}", Connections.IndexOf(SelectedConnection), Databases.IndexOf(SelectedDatabase)));
 
-                foreach (var item in core.GetTables())
-                    Tables.Add(item);
 
-                foreach (var item in core.GetStoredProcedures())
-                    StoredProcedures.Add(item);
 
-                if (Tables.Count > 0)
-                    SelectedTable = Tables[0];
+                SearchSPs();
+
+                SearchTables();
             }
+        }
+
+        private void SearchSPs()
+        {
+            StoredProcedures.Clear();
+            foreach (var item in core.GetStoredProcedures(FilterSpName, FilterSpColumn))
+                StoredProcedures.Add(item);
+        }
+
+        private void SearchTables()
+        {
+            Tables.Clear();
+
+            foreach (var item in core.GetTables(FilterTableName, FilterTableColumn))
+                Tables.Add(item);
+
+            if (Tables.Count > 0)
+                SelectedTable = Tables[0];
         }
 
         private string _SelectedTable = null;
@@ -340,8 +354,13 @@ namespace DatabaseUtilities.Core
 
             set
             {
+                if (value.Equals(_FilterSpName))
+                    return;
+
                 _FilterSpName = value;
                 RaisePropertyChanged("FilterSpName");
+
+                SearchSPs();
             }
         }
 
@@ -355,8 +374,13 @@ namespace DatabaseUtilities.Core
 
             set
             {
+                if (value.Equals(_FilterSpColumn))
+                    return;
+
                 _FilterSpColumn = value;
                 RaisePropertyChanged("FilterSpColumn");
+
+                SearchSPs();
             }
         }
         private string _FilterTableName = string.Empty;
@@ -369,8 +393,13 @@ namespace DatabaseUtilities.Core
 
             set
             {
+                if (value.Equals(_FilterTableName))
+                    return;
+
                 _FilterTableName = value;
                 RaisePropertyChanged("FilterTableName");
+
+                SearchTables();
             }
         }
         private string _FilterTableColumn = string.Empty;
@@ -383,8 +412,13 @@ namespace DatabaseUtilities.Core
 
             set
             {
+                if (value.Equals(_FilterTableColumn))
+                    return;
+
                 _FilterTableColumn = value;
                 RaisePropertyChanged("FilterTableColumn");
+
+                SearchTables();
             }
         }
 

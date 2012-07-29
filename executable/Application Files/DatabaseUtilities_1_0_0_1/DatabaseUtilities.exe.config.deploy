@@ -5,7 +5,4 @@
     <add connectionString="Data Source=ALANS-PC\SQL2008R2;Initial Catalog=master;Integrated Security=True" name="local"/>
 
   </connectionStrings>
-  <startup>
-    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
-  </startup>
-</configuration>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup></configuration>
