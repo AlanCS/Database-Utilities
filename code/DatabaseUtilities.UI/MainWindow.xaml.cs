@@ -87,12 +87,12 @@ namespace DatabaseUtilities.UI
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-
+            VM.Refresh();
         }
 
         private void btnSP_Click(object sender, RoutedEventArgs e)
         {
-
+            VM.AllSps();
         }
 
         private void Databases_SelectionChanged(object sender, SelectionChangedEventArgs e)

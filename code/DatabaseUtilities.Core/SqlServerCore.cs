@@ -320,7 +320,8 @@ namespace DatabaseUtilities.Core
             code.Append(String.Format("   drop proc {0}{1}go{1}", SelectedStoredProcedure, Environment.NewLine));
             code.Append(spText);
             code.Append(String.Format("{0}go{0}", Environment.NewLine));
-            code.Append("--exec " + SelectedStoredProcedure + " " + string.Join(",", CurrentObjectColumns.Select(c => c.GetSampleValue(true))));
+            //code.Append("--exec " + SelectedStoredProcedure + " " + string.Join(",", CurrentObjectColumns.Select(c => c.GetSampleValue(true))));
+            //code.Append(String.Format("{0}go{0}", Environment.NewLine));
 
             return code.ToString();
         }

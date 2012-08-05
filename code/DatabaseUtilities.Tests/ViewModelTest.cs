@@ -121,7 +121,7 @@ namespace DatabaseUtilities.Tests
 
             var spLengthWithoutExecuting = vw.GeneratedCode2.Length;
 
-            vw.CanExecuteAllStoredProcedures = true;
+            vw.GetCSharpCodeForStoredProcedure(true);
 
             if (string.IsNullOrEmpty(vw.GeneratedCode2) || !vw.GeneratedCode2.Contains(".Open()") || !vw.GeneratedCode2.Contains("CommandText"))
                 Assert.Fail("didn't generate c# code to call stored procedure properly");
@@ -264,7 +264,7 @@ as
 
             var spLengthWithoutExecuting = vw.GeneratedCode2.Length;
 
-            vw.CanExecuteAllStoredProcedures = true;
+            vw.GetCSharpCodeForStoredProcedure(true);
 
             if (string.IsNullOrEmpty(vw.GeneratedCode2) || !vw.GeneratedCode2.Contains(".Open()") || !vw.GeneratedCode2.Contains("CommandText"))
                 Assert.Fail("didn't generate c# code to call stored procedure properly");

@@ -148,9 +148,7 @@ namespace DatabaseUtilities.Core
                     return;
 
                 _SelectedDatabase = value;
-                RaisePropertyChanged("SelectedDatabase");
-
-                
+                RaisePropertyChanged("SelectedDatabase");                
 
                 ClearFilters();
 
@@ -159,12 +157,17 @@ namespace DatabaseUtilities.Core
 
                 logManagent.Write("last_opened_database", String.Format("{0}_{1}", Connections.IndexOf(SelectedConnection), Databases.IndexOf(SelectedDatabase)));
 
-
-
                 SearchSPs();
 
                 SearchTables();
             }
+        }
+
+        public void Refresh()
+        {
+            SearchSPs();
+
+            SearchTables();
         }
 
         private void SearchSPs()
@@ -209,6 +212,28 @@ namespace DatabaseUtilities.Core
 
                 GeneratedCode1 = core.GenerateCodeCreateTable(SelectedTable);
                 GenerateSP_Select();
+                SelectedObject = DbObject.Table;
+            }
+        }
+
+        public enum DbObject { None, Table, StoredProcedure };
+
+        private DbObject _SelectedObject = DbObject.None;
+        public DbObject SelectedObject
+        {
+            get
+            {
+                return _SelectedObject;
+            }
+            set
+            {
+                if (value == _SelectedObject)
+                    return;
+
+                _SelectedObject = value;
+
+                RaisePropertyChanged("ShowTableButtons");
+                RaisePropertyChanged("ShowSPButtons");
             }
         }
 
@@ -244,13 +269,15 @@ namespace DatabaseUtilities.Core
                 GeneratedCode1 = core.GenerateCodeForStoredProcedure(SelectedStoredProcedure);
 
                 GetCSharpCodeForStoredProcedure();
+
+                SelectedObject = DbObject.StoredProcedure;
             }
         }
 
         public void GetCSharpCodeForStoredProcedure(bool ForceExecution = false)
         {
             if (!string.IsNullOrEmpty(SelectedStoredProcedure))
-                GeneratedCode2 = core.GenerateCSharpCodeForSP(SelectedStoredProcedure, CanExecuteAllStoredProcedures || ForceExecution);
+                GeneratedCode2 = core.GenerateCSharpCodeForSP(SelectedStoredProcedure,  ForceExecution);
         }
 
 
@@ -266,34 +293,19 @@ namespace DatabaseUtilities.Core
             GeneratedCode2 = core.GenerateSP_Delete(SelectedTable);
         }
 
-
-        private bool _CanExecuteAllStoredProcedures = false;
-        public bool CanExecuteAllStoredProcedures
+        public bool ShowSPButtons
         {
             get
             {
-                return _CanExecuteAllStoredProcedures;
-            }
-
-            set
-            {
-                if (_CanExecuteAllStoredProcedures == value)
-                    return;
-
-                _CanExecuteAllStoredProcedures = value;
-
-                RaisePropertyChanged("CanExecuteAllStoredProcedures");
-                RaisePropertyChanged("ShowButtonExecute");
-
-                GetCSharpCodeForStoredProcedure();
+                return SelectedObject == DbObject.StoredProcedure;
             }
         }
 
-        public bool ShowButtonExecute
+        public bool ShowTableButtons
         {
             get
             {
-                return !CanExecuteAllStoredProcedures;
+                return SelectedObject == DbObject.Table;
             }
         }
 
@@ -478,10 +490,25 @@ namespace DatabaseUtilities.Core
         {
             var file = Path.Combine(System.Environment.CurrentDirectory, "logs") + @"\query.sql";
 
+            if(SelectedObject == DbObject.StoredProcedure)
+                File.WriteAllText(file, this.GeneratedCode1);
+            else
             File.WriteAllText(file, this.GeneratedCode2);
 
             Process.Start(file);
 
+        }
+
+        public void AllSps()
+        {
+            var sps = new StringBuilder();
+
+            foreach (var sp in this.StoredProcedures)
+            {
+                sps.AppendLine(core.GenerateCodeForStoredProcedure(sp));
+            }
+
+            GeneratedCode1 = sps.ToString();
         }
     }
 }

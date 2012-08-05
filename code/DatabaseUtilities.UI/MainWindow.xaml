@@ -98,7 +98,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="SELECT" x:Name="btnSelect" Click="btnSelect_Click" Margin="0 0 20 0">
+                        <Button Content="SELECT" x:Name="btnSelect" Click="btnSelect_Click" Margin="0 0 20 0" Visibility="{Binding ShowTableButtons,Converter={StaticResource VisibilityConverter}}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -109,7 +109,7 @@
                             </Button.ContentTemplate>
                         </Button>
 
-                        <Button Content="INSERT / UPDATE" x:Name="btnInsert" Click="btnInsert_Click" Margin="0 0 20 0">
+                        <Button Content="INSERT / UPDATE" x:Name="btnInsert" Click="btnInsert_Click" Margin="0 0 20 0" Visibility="{Binding ShowTableButtons,Converter={StaticResource VisibilityConverter}}">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -120,7 +120,7 @@
                             </Button.ContentTemplate>
                         </Button>
 
-                        <Button Content="DELETE" x:Name="btnDelete" Click="btnDelete_Click" Margin="0 0 20 0" >
+                        <Button Content="DELETE" x:Name="btnDelete" Click="btnDelete_Click" Margin="0 0 20 0"  Visibility="{Binding ShowTableButtons,Converter={StaticResource VisibilityConverter}}" >
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -153,12 +153,11 @@
                             </Button.ContentTemplate>
                         </Button>
 
-
-
-                        <Button Content="Execute SP" Visibility="{Binding ShowButtonExecute,Converter={StaticResource VisibilityConverter}}" x:Name="btnExecute" Click="btnExecute_Click"  Margin="0 0 20 0">
+                        <Button Content="Execute SP" Visibility="{Binding ShowSPButtons,Converter={StaticResource VisibilityConverter}}" x:Name="btnExecute" Click="btnExecute_Click"  Margin="0 0 20 0">
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        <Image Source="/DatabaseUtilities;component/Images/run.png" Margin="0 0 5 0" />
                                         <TextBlock Text="{Binding}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -170,6 +169,7 @@
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        <Image Source="/DatabaseUtilities;component/Images/open.png" Margin="0 0 5 0" />
                                         <TextBlock Text="{Binding}" VerticalAlignment="Center" />
                                     </StackPanel>
                                 </DataTemplate>
@@ -181,7 +181,6 @@
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center"   Grid.Column="2">
 
-                        <CheckBox IsChecked="{Binding CanExecuteAllStoredProcedures, Mode=TwoWay}" VerticalAlignment="Center" Content="Can execute SPs" />
 
                         <Label Content="Connections: " Margin="50 0 0 0" />
                         <ComboBox ItemsSource="{Binding Connections}" VerticalAlignment="Center" SelectedValue="{Binding SelectedConnection, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />

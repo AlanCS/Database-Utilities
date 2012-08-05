@@ -38,8 +38,9 @@ namespace DatabaseUtilities.Core
 
         public string Read(string key)
         {
-            if (File.Exists(key))
-                return File.ReadAllText(String.Format(@"{0}\{1}.txt", folder, key));
+            var file = String.Format(@"{0}\{1}.txt", folder, key);
+            if (File.Exists(file))
+                return File.ReadAllText(file);
             else
                 return string.Empty;
         }
