@@ -153,7 +153,16 @@
                             </Button.ContentTemplate>
                         </Button>
 
-                        <Button Content="Execute SP" Visibility="{Binding ShowSPButtons,Converter={StaticResource VisibilityConverter}}" x:Name="btnExecute" Click="btnExecute_Click"  Margin="0 0 20 0">
+                        <Button Content="Execute SP" Visibility="{Binding ShowSPButtons,Converter={StaticResource VisibilityConverter}}" x:Name="btnExecute" Click="btnExecute_Click" ToolTipService.ShowDuration="15000"  Margin="0 0 20 0">
+                            <Button.ToolTip>
+                                <TextBlock>
+                                    This button will execute the selected SP (with standard parameters if necessary)
+                                    <LineBreak />
+                                    in order to obtain the output and generate the C# code to retrieve it.
+                                    <LineBreak />
+                                    Don't execute it if the SP could make unrevertable changes, like deleting data, sending e-mails, etc.                               
+                                </TextBlock>
+                            </Button.ToolTip>
                             <Button.ContentTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
