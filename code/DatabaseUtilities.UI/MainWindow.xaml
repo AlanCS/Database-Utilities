@@ -95,6 +95,8 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal">
@@ -188,17 +190,14 @@
                     </StackPanel>
 
 
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center"   Grid.Column="2">
-
-
-                        <Label Content="Connections: " Margin="50 0 0 0" />
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2">
+                        <Label Content="Connections: " />
                         <ComboBox ItemsSource="{Binding Connections}" VerticalAlignment="Center" SelectedValue="{Binding SelectedConnection, Mode=TwoWay}" DisplayMemberPath="Name" MinWidth="100" />
-
-                        <Label Content="Database: " Margin="50 0 0 0" />
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="4">
+                        <Label Content="Database: " />
                         <ComboBox ItemsSource="{Binding Databases}"  VerticalAlignment="Center" SelectedValue="{Binding SelectedDatabase, Mode=TwoWay}" MinWidth="100" />
-
-                        
-
                     </StackPanel>
                 </Grid>
             </Grid>

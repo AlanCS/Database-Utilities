@@ -3,6 +3,8 @@ Database-Utilities
 
 Helper that saves you time in managing your SQL Server database (2000, 2005, 2008)
 
+Take a look at the quick tour in the video "tour.mp4"
+
 You can:
 
 - Filter tables by name or column name
