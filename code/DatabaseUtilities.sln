@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.Core", "DatabaseUtilities.Core\DatabaseUtilities.Core.csproj", "{C91599C8-03AC-44C1-8213-A80B0C25F772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.UI", "DatabaseUtilities.UI\DatabaseUtilities.UI.csproj", "{1E58D38C-B109-4D2C-8CDB-A035A0413DF6}"
@@ -15,6 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.DAL", "DatabaseUtilities.DAL\DatabaseUtilities.DAL.csproj", "{557054E3-C17C-45F7-ACD2-7904257F6482}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.Web.Client", "DatabaseUtilities.Web.Client\DatabaseUtilities.Web.Client.csproj", "{F7FF463A-3F14-44A9-B571-0E9277C1000D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F} = {94B3380A-C527-4999-8F4B-6A1E10647A6F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.Web.Server", "DatabaseUtilities.Web.Server\DatabaseUtilities.Web.Server.csproj", "{94B3380A-C527-4999-8F4B-6A1E10647A6F}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -69,6 +76,26 @@ Global
 		{557054E3-C17C-45F7-ACD2-7904257F6482}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{557054E3-C17C-45F7-ACD2-7904257F6482}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{557054E3-C17C-45F7-ACD2-7904257F6482}.Release|x86.ActiveCfg = Release|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F7FF463A-3F14-44A9-B571-0E9277C1000D}.Release|x86.ActiveCfg = Release|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{94B3380A-C527-4999-8F4B-6A1E10647A6F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

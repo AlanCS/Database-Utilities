@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IServerService" sendTimeout="00:05:00"
+                    maxBufferSize="6553600" maxReceivedMessageSize="6553600" />
+                <binding name="BasicHttpBinding_IServerService1" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:5804/ServerService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IServerService" contract="IServerService"
+                name="BasicHttpBinding_IServerService" />
+            <endpoint address="../ServerService.svc" binding="basicHttpBinding"
+                bindingConfiguration="BasicHttpBinding_IServerService1" contract="ServerService.IServerService"
+                name="BasicHttpBinding_IServerService1" />
+        </client>
+    </system.serviceModel>
+</configuration>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5165e7a0-2b18-4a20-840f-4ebbade2b5e5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:5804/ServerService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServerService.xsd" MetadataType="Schema" ID="5dc2bad1-aad7-4815-afc5-66e0ecad25a1" SourceId="1" SourceUrl="http://localhost:5804/ServerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServerService1.xsd" MetadataType="Schema" ID="65785815-2d83-44e1-9b03-bf5cb1d6daff" SourceId="1" SourceUrl="http://localhost:5804/ServerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ServerService.wsdl" MetadataType="Wsdl" ID="bd290a04-7f77-4701-b8cd-a7eec70ded35" SourceId="1" SourceUrl="http://localhost:5804/ServerService.svc?wsdl" />
+    <MetadataFile FileName="ServerService2.xsd" MetadataType="Schema" ID="51ab322e-6163-47b4-bcbe-b657b04d84a2" SourceId="1" SourceUrl="http://localhost:5804/ServerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServerService.disco" MetadataType="Disco" ID="b2a5b8fb-a44f-4679-afa9-6c2e0517a261" SourceId="1" SourceUrl="http://localhost:5804/ServerService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

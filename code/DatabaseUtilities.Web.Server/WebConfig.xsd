@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="configuration">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="configSections">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="section">
+                <xs:complexType>
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="type" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CustomConnections">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="add">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="connection" type="xs:string" use="required" />
+                  <xs:attribute name="group" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="system.web">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="compilation">
+                <xs:complexType>
+                  <xs:attribute name="debug" type="xs:boolean" use="required" />
+                  <xs:attribute name="targetFramework" type="xs:decimal" use="required" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="httpRuntime">
+                <xs:complexType>
+                  <xs:attribute name="targetFramework" type="xs:decimal" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="system.serviceModel">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="behaviors">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="serviceBehaviors">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="behavior">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="serviceMetadata">
+                                  <xs:complexType>
+                                    <xs:attribute name="httpGetEnabled" type="xs:boolean" use="required" />
+                                    <xs:attribute name="httpsGetEnabled" type="xs:boolean" use="required" />
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element name="serviceDebug">
+                                  <xs:complexType>
+                                    <xs:attribute name="includeExceptionDetailInFaults" type="xs:boolean" use="required" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="name" type="xs:string" use="required" />
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="serviceHostingEnvironment">
+                <xs:complexType>
+                  <xs:attribute name="aspNetCompatibilityEnabled" type="xs:boolean" use="required" />
+                  <xs:attribute name="multipleSiteBindingsEnabled" type="xs:boolean" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
