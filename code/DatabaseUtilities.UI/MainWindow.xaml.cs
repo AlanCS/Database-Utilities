@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
+
 
 namespace DatabaseUtilities.UI
 {
@@ -120,22 +122,6 @@ namespace DatabaseUtilities.UI
         private void btnOpenSQL_Click(object sender, RoutedEventArgs e)
         {
             VM.OpenSql();
-        }
-    }
-
-
-    [ValueConversion(typeof(Visibility), typeof(bool))]
-    public class VisibilityConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter,
-                        System.Globalization.CultureInfo culture)
-        {
-            return null;
         }
     }
 }

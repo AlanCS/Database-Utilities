@@ -7,6 +7,7 @@
         xmlns:core="clr-namespace:DatabaseUtilities.Core;assembly=DatabaseUtilities.Core"
         xmlns:ui="clr-namespace:DatabaseUtilities.UI" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
     <Window.Resources>
+        
 
         <ui:VisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>

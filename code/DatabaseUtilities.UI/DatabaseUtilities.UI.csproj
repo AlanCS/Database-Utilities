@@ -53,7 +53,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>database.ico</ApplicationIcon>
+    <ApplicationIcon>fav.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>067279AB8C7F0FA22C6AA08DDC76AD4B3733E22B</ManifestCertificateThumbprint>
@@ -76,6 +76,7 @@
     <Reference Include="System.Windows.Controls.Layout.Toolkit">
       <HintPath>..\packages\WPFToolkit.3.5.50211.1\lib\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -99,9 +100,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Loading.xaml.cs">
+      <DependentUpon>Loading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RelatedObjects.cs" />
+    <Compile Include="SelectDatabase.xaml.cs">
+      <DependentUpon>SelectDatabase.xaml</DependentUpon>
+    </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Loading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -114,12 +130,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="MainWindow2.xaml.cs">
+      <DependentUpon>MainWindow2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SelectDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DatabaseObjectWithParents.cs" />
+    <Compile Include="Models\Environment.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Models\GroupingColumn.cs" />
+    <Compile Include="Models\TreeNode.cs" />
+    <Compile Include="Models\VirtualToggleButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -152,10 +183,9 @@
   <ItemGroup>
     <Resource Include="Images\Add.png" />
     <Resource Include="Images\Cancel.png" />
-    <Resource Include="Images\database.ico" />
+    <Resource Include="Images\fav.ico" />
     <Resource Include="Images\Print.png" />
     <Resource Include="Images\Refresh.png" />
-    <Resource Include="Images\Tools.png" />
     <Resource Include="Images\Up.png" />
     <Resource Include="Images\Zoom.png" />
   </ItemGroup>
@@ -163,6 +193,10 @@
     <ProjectReference Include="..\DatabaseUtilities.Core\DatabaseUtilities.Core.csproj">
       <Project>{C91599C8-03AC-44C1-8213-A80B0C25F772}</Project>
       <Name>DatabaseUtilities.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DatabaseUtilities.DAL\DatabaseUtilities.DAL.csproj">
+      <Project>{557054e3-c17c-45f7-acd2-7904257f6482}</Project>
+      <Name>DatabaseUtilities.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +227,33 @@
   <ItemGroup>
     <Resource Include="Images\open.png" />
     <Resource Include="Images\run.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\save_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\github.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\freebsd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\linkedin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\text_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="fav.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,6 +16,7 @@ namespace DatabaseUtilities.DAL
         public long Rows { get; set; }
         public decimal TotalSpaceKb { get; set; }
 
+
         public override string ToString()
         {
             return string.Format("{0}.{1} ({2} rows)", this.Schema, this.Name, this.Rows);

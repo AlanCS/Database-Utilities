@@ -9,20 +9,22 @@ namespace DatabaseUtilities.DAL
     {
         public Snapshot()
         {
-            Connections = new List<Connection>();
+            Servers = new List<Server>();
         }
-        public List<Connection> Connections { get; set; }
+        public List<Server> Servers { get; set; }
 
         public DifferentialSnapshot GetChangesSince(DateTime time)
         {
             var result = new DifferentialSnapshot();
 
-            result.TablesAddedOrChanged = this.Connections.SelectMany(c => c.Databases.SelectMany(d => d.Tables)).Where(c => c.LastModifiedDate > time).ToList();
-            result.StoredProceduresAddedOrChanged = this.Connections.SelectMany(c => c.Databases.SelectMany(d => d.StoredProcedures)).Where(c => c.LastModifiedDate > time).ToList();
-            result.ViewsAddedOrChanged = this.Connections.SelectMany(c => c.Databases.SelectMany(d => d.Views)).Where(c => c.LastModifiedDate > time).ToList();
+            result.TablesAddedOrChanged = this.Servers.SelectMany(c => c.Databases.SelectMany(d => d.Tables)).Where(c => c.LastModifiedDate > time).ToList();
+            result.StoredProceduresAddedOrChanged = this.Servers.SelectMany(c => c.Databases.SelectMany(d => d.StoredProcedures)).Where(c => c.LastModifiedDate > time).ToList();
+            result.ViewsAddedOrChanged = this.Servers.SelectMany(c => c.Databases.SelectMany(d => d.Views)).Where(c => c.LastModifiedDate > time).ToList();
 
             return result;
         }
+
+        public DateTime? SnapshotTaken { get; set; }
 
         public DateTime? LastUpdatedObject
         {
@@ -30,10 +32,10 @@ namespace DatabaseUtilities.DAL
             {
                 var lastUpdates = new List<DateTime>();
 
-                lastUpdates.Add(Connections.SelectMany(c => c.Databases).Max(c => c.Created));
-                lastUpdates.Add(Connections.SelectMany(c => c.Databases).SelectMany(c => c.Tables).Max(c => c.LastModifiedDate));
-                lastUpdates.Add(Connections.SelectMany(c => c.Databases).SelectMany(c => c.StoredProcedures).Max(c => c.LastModifiedDate));
-                lastUpdates.Add(Connections.SelectMany(c => c.Databases).SelectMany(c => c.Views).Max(c => c.LastModifiedDate));
+                lastUpdates.Add(Servers.SelectMany(c => c.Databases).Max(c => c.Created));
+                lastUpdates.Add(Servers.SelectMany(c => c.Databases).SelectMany(c => c.Tables).Max(c => c.LastModifiedDate));
+                lastUpdates.Add(Servers.SelectMany(c => c.Databases).SelectMany(c => c.StoredProcedures).Max(c => c.LastModifiedDate));
+                lastUpdates.Add(Servers.SelectMany(c => c.Databases).SelectMany(c => c.Views).Max(c => c.LastModifiedDate));
                 return lastUpdates.Max();
             }
         }

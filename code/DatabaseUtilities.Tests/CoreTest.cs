@@ -83,6 +83,8 @@ namespace DatabaseUtilities.Tests
             Assert.AreEqual("cd", target.GetAlias("customers_details"));
 
             Assert.AreEqual("c", target.GetAlias("customersdetails"));
+
+            Assert.AreEqual("AP", target.GetAlias("tbl_OFIAccountOFIProduct"));
         }
     }
 }

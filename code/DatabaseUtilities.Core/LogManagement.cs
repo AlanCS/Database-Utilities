@@ -25,6 +25,11 @@ namespace DatabaseUtilities.Core
 
         void timerWriter_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            WriteToFiles();
+        }
+
+        private void WriteToFiles()
+        {
             timerWriter.Stop();
 
             lock (this)
@@ -53,6 +58,14 @@ namespace DatabaseUtilities.Core
 
             timerWriter.Start();
         }
+
+        public void WriteNow(string key, string content)
+        {
+            Write(key, content);
+            WriteToFiles();
+        }
+
+
 
         public void Dispose()
         {

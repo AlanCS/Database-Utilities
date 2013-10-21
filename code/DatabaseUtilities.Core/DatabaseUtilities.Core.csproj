@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DatabaseObjectWithParents.cs" />
+    <Compile Include="Models\Environment.cs" />
+    <Compile Include="Models\Global.cs" />
+    <Compile Include="Models\RelatedObjects.cs" />
+    <Compile Include="ViewModel2.cs" />
     <Compile Include="SqlServerCore.cs">
       <SubType>Code</SubType>
     </Compile>

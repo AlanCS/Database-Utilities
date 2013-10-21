@@ -28,7 +28,7 @@ namespace DatabaseUtilities.DAL.Config
         protected override object GetElementKey(ConfigurationElement element)
         {
             //set to whatever Element Property you want to use for a key
-            return ((MyConfigInstanceElement)element).Name;
+            return ((MyConfigInstanceElement)element).id;
         }
     }
 
@@ -42,18 +42,18 @@ namespace DatabaseUtilities.DAL.Config
             set { base["name"] = value; }
         }
 
-        [ConfigurationProperty("connection", IsRequired = true)]
-        public string Connection
+        [ConfigurationProperty("server", IsRequired = true)]
+        public string Server
         {
-            get { return (string)base["connection"]; }
-            set { base["connection"] = value; }
+            get { return (string)base["server"]; }
+            set { base["server"] = value; }
         }
 
-        [ConfigurationProperty("group", IsRequired = false, DefaultValue="ungrouped")]
-        public string Group
+        [ConfigurationProperty("environment", IsRequired = false, DefaultValue="unknown")]
+        public string Environment
         {
-            get { return (string)base["group"]; }
-            set { base["group"] = value; }
+            get { return (string)base["environment"]; }
+            set { base["environment"] = value; }
         }
 
         [ConfigurationProperty("id", IsRequired = true)]

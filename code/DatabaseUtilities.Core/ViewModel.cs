@@ -395,6 +395,7 @@ namespace DatabaseUtilities.Core
                 SearchSPs();
             }
         }
+
         private string _FilterTableName = string.Empty;
         public string FilterTableName
         {

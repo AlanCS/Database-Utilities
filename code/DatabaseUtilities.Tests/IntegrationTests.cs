@@ -77,20 +77,28 @@ namespace DatabaseUtilities.Tests
             #endregion
 
             #region assert
-            Assert.AreNotEqual(0, snapshot.Connections.Count);
+            Assert.AreNotEqual(0, snapshot.Servers.Count);
 
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases.Count);
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases.Count);
 
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].Tables.Count);
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].Tables[0].Columns.Count);
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases[0].Tables.Count);
 
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].Views.Count);
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].Views[0].Columns.Count);
-            if (string.IsNullOrEmpty(snapshot.Connections[0].Databases[0].Views[0].Text)) Assert.Fail("didn't return code");
+            var allTables = snapshot.Servers.SelectMany(c => c.Databases).SelectMany(c => c.Tables).ToArray();
+            Assert.AreNotEqual(0, allTables.Count());
+            Assert.AreEqual(0, allTables.Where(c => c.Columns.Count == 0).Count());
+            
 
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].StoredProcedures.Count);
-            Assert.AreNotEqual(0, snapshot.Connections[0].Databases[0].StoredProcedures[0].Columns.Count);
-            if (string.IsNullOrEmpty(snapshot.Connections[0].Databases[0].StoredProcedures[0].Text)) Assert.Fail("didn't return code");
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases[0].Views.Count);
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases[0].Views[0].Columns.Count);
+            if (string.IsNullOrEmpty(snapshot.Servers[0].Databases[0].Views[0].Text)) Assert.Fail("didn't return code");
+
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases[0].StoredProcedures.Count);
+            Assert.AreNotEqual(0, snapshot.Servers[0].Databases[0].StoredProcedures[0].Columns.Count);
+
+
+            var allStoredProcedures = snapshot.Servers.SelectMany(c => c.Databases).SelectMany(c => c.StoredProcedures).ToArray();
+            Assert.AreNotEqual(0, allStoredProcedures.Count());
+            Assert.AreEqual(0, allStoredProcedures.Where(c => string.IsNullOrEmpty(c.Text)).Count());
             #endregion
 
             #region act GetChangesSince and LastUpdatedObject

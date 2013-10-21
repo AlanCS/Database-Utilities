@@ -11,6 +11,7 @@ namespace DatabaseUtilities.DAL
         public View()
         {
             this.Columns = new List<Column>();
+            this.Text = string.Empty;
         }
 
         public string Text { get; set; }

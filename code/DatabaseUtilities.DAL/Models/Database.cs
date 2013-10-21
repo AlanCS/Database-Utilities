@@ -8,10 +8,17 @@ namespace DatabaseUtilities.DAL
 {
     [Serializable]
     [DataContract]
-    public class Database
+    public class Database: IEquatable<Database>
     {
+        public Database()
+        {
+            this.Tables = new List<Table>();
+            this.StoredProcedures = new List<StoredProcedure>();
+            this.Views = new List<View>();
+        }
+
         [DataMember]
-        public int ConnectionId { get; set; }
+        public int ServerId { get; set; }
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -25,17 +32,17 @@ namespace DatabaseUtilities.DAL
         public DateTime Created { get; set; }
 
         [DataMember]
-        public ulong DatabaseConnectionId
+        public long DatabaseServerId
         {
             get
             {
-                ulong id = Id > ConnectionId ? (uint)ConnectionId | ((ulong)Id << 32) :
-                         (uint)Id | ((ulong)ConnectionId << 32);
+                var id = ((long)Id << 32) + ServerId;
+
                 return id;
             }
             set
             {
-                throw new Exception("can only be read");
+                
             }
         }
 
@@ -49,6 +56,16 @@ namespace DatabaseUtilities.DAL
         public override string ToString()
         {
             return Name;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.DatabaseServerId.GetHashCode();
+        }
+
+        bool IEquatable<Database>.Equals(Database other)
+        {
+            return this.DatabaseServerId == other.DatabaseServerId;
         }
     }
 }

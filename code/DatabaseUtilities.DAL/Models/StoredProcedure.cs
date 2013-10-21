@@ -10,6 +10,7 @@ namespace DatabaseUtilities.DAL
         public StoredProcedure()
         {
             this.Columns = new List<Column>();
+            this.Text = string.Empty;
         }
 
         public string Text { get; set; }
