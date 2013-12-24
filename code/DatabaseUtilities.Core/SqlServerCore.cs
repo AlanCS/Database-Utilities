@@ -99,7 +99,7 @@ namespace DatabaseUtilities.Core
 
                 string error = string.Empty;
 
-                var spResults = database.ExecuteStoredProcedure(StoredProcedure.Name, CurrentObjectColumns, out error);
+                var spResults = database.ExecuteStoredProcedure(StoredProcedure, out error);
 
                 if (error != string.Empty)
                 {
@@ -157,7 +157,8 @@ namespace DatabaseUtilities.Core
                 code += string.Join(Environment.NewLine + "   reader.NextResult();" + Environment.NewLine, codeDataReading.ToArray());
                 code += @"
    reader.Close();
-   reader.Dispose();";
+   reader.Dispose();
+   con.Close();";
             }
 
             code += Environment.NewLine + "}";
@@ -380,7 +381,7 @@ namespace DatabaseUtilities.Core
             code.Append(string.Join("," + Environment.NewLine, primaryKeys.Select(c => "@" + c.GetNameAndType())));
             code.Append(Environment.NewLine + Environment.NewLine + "as" + Environment.NewLine + Environment.NewLine);
             code.Append("select " + string.Join("," + Environment.NewLine, CurrentObjectColumns.Select(c => "\t" + initials + "." + c.Name)) + Environment.NewLine);
-            code.Append("from " + fullTableName + "\t" + initials + " (nolock)" + Environment.NewLine);
+            code.Append("from " + fullTableName + "\t" + initials + " " + Environment.NewLine);
             if (primaryKeys.Count() > 0)
                 code.Append("where " + string.Join(" and " + Environment.NewLine, primaryKeys.Select(c => initials + "." + c.Name + " = @" + c.Name)) + Environment.NewLine);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
@@ -407,7 +408,7 @@ namespace DatabaseUtilities.Core
             code.Append(string.Join("," + Environment.NewLine, primaryKeys.Select(c => "    @" + c.GetNameAndType())));
             code.Append(Environment.NewLine + Environment.NewLine + "as" + Environment.NewLine + Environment.NewLine);
             code.Append("select " + string.Join("," + Environment.NewLine, obj.Columns.Select(c => "\t" + initials + "." + c.Name)) + Environment.NewLine);
-            code.Append("from " + obj.FormattedSchemaAndName + "\t" + initials + " (nolock)" + Environment.NewLine);
+            code.Append("from " + obj.FormattedSchemaAndName + "\t" + initials + " " + Environment.NewLine);
             if (primaryKeys.Count() > 0)
                 code.Append("where " + string.Join(" and " + Environment.NewLine, primaryKeys.Select(c => initials + "." + c.Name + " = @" + c.Name)) + Environment.NewLine);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);

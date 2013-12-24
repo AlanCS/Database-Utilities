@@ -49,27 +49,6 @@ namespace DatabaseUtilities.DAL
                         databaseInMemory = databaseFromDB;
                     }
 
-                    //var changedTables = sqlserver.GetTables(connection, databaseFromDB, sinceDate);
-                    //if (changedTables.Count > 0)
-                    //{
-                    //    databaseInMemory.Tables.RemoveAll(c => changedTables.Select(d => d.Id).Contains(c.Id));
-                    //    databaseInMemory.Tables.AddRange(changedTables);
-                    //}
-
-                    //var changedStoredProcedures = sqlserver.GetStoredProcedures(connection, databaseFromDB, sinceDate);
-                    //if (changedStoredProcedures.Count > 0)
-                    //{
-                    //    databaseInMemory.StoredProcedures.RemoveAll(c => changedStoredProcedures.Select(d => d.Id).Contains(c.Id));
-                    //    databaseInMemory.StoredProcedures.AddRange(changedStoredProcedures);
-                    //}
-
-                    //var changedViews = sqlserver.GetViews(connection, databaseFromDB, sinceDate);
-                    //if (changedViews.Count > 0)
-                    //{
-                    //    databaseInMemory.Views.RemoveAll(c => changedViews.Select(d => d.Id).Contains(c.Id));
-                    //    databaseInMemory.Views.AddRange(changedViews);
-                    //}
-
                 }
             }
         }
@@ -101,7 +80,14 @@ namespace DatabaseUtilities.DAL
                 if(snapshot == null)
                 {
                     snapshot = GetFullSnapshot();
-                    serializer.Serialize(new FileStream(fileName, FileMode.Create), snapshot);
+                    try
+                    {
+                        serializer.Serialize(new FileStream(fileName, FileMode.Create), snapshot);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                    }
                 }
 
                 ApplicationKeeper.AddUpdate("LatestSnapshot", snapshot);

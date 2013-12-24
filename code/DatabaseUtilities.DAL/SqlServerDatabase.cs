@@ -34,6 +34,50 @@ namespace DatabaseUtilities.DAL
             return GetString(String.Format("sp_helptext '{0}'", SPName));
         }
 
+        public System.Data.DataSet ExecuteStoredProcedure(DAL.StoredProcedure StoredProcedure, out string error)
+        {
+            error = string.Empty;
+            DataSet result = new DataSet();
+
+            var snapshot = new DatabaseService().GetCachedSnapshot();
+
+            var database =  snapshot.Servers.SelectMany(c => c.Databases).SingleOrDefault(c => c.DatabaseServerId == StoredProcedure.DatabaseServerId);
+            var server = snapshot.Servers.SingleOrDefault(c => c.Id == database.ServerId);
+            
+            using(var con = new SqlConnection(server.ConnectionString))
+            using (var com = con.CreateCommand())
+            {
+                com.CommandText = string.Format("[{0}].{1}", database.Name, StoredProcedure.SchemaAndName);
+                com.CommandType = System.Data.CommandType.StoredProcedure;
+                com.CommandTimeout = 20;
+
+                foreach (var column in StoredProcedure.Columns)
+                    com.Parameters.Add(new SqlParameter(column.Name, column.GetSampleValue(false)));
+
+                using (var adapter = new SqlDataAdapter(com))
+                {
+                    con.Open();
+                    try
+                    {
+                        adapter.Fill(result);
+                    }
+                    catch (Exception ex)
+                    {
+                        error = ex.ToString();
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
+
+                }
+            }
+
+
+            return result;
+        }
+
+
         public DataSet ExecuteStoredProcedure(string SPName, IEnumerable<Column> spParams, out string error)
         {
             error = string.Empty;

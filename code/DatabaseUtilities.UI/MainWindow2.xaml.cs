@@ -265,12 +265,11 @@ namespace DatabaseUtilities.UI
 
         private void btnOpenSQL_Click(object sender, RoutedEventArgs e)
         {
-            var file = System.IO.Path.Combine(System.Environment.CurrentDirectory, "logs") + @"\query.sql";
+            var file = System.IO.Path.Combine(System.Environment.CurrentDirectory, "settings") + @"\query.sql";
 
             if(string.IsNullOrEmpty(txtTable2.SelectedText))             
-            File.WriteAllText(file, txtTable2.Text);
+                File.WriteAllText(file, txtTable2.Text);
             else
-
                 File.WriteAllText(file, txtTable2.SelectedText);
 
             OpenSQLServer(file);
@@ -531,7 +530,14 @@ namespace DatabaseUtilities.UI
 
         private void Menu_OpenSQLServer_Click(object sender, RoutedEventArgs e)
         {
-            OpenSQLServer();
+            btnOpenSQL_Click(sender, e);
+        }
+
+        private void btnExecuteSP_Click(object sender, RoutedEventArgs e)
+        {
+             if (LastSelectedStoredProcedure == null) return;
+
+            txtStoredProcedure2.Text = new SqlServerCore().GenerateCSharpCodeForSP(LastSelectedStoredProcedure, true);
         }
 
     }

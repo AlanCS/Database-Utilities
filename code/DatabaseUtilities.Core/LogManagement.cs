@@ -10,7 +10,7 @@ namespace DatabaseUtilities.Core
     {
         System.Timers.Timer timerWriter = null;
         Dictionary<string, string> ValuesToWrite = null;
-        private string folder = Path.Combine(System.Environment.CurrentDirectory, "logs");
+        private string folder = Path.Combine(System.Environment.CurrentDirectory, "settings");
 
         public LogManagement()
         {

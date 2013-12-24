@@ -87,42 +87,6 @@ where database_id > 4";
             return list;
         }
 
-        //        public void GetForeignKeys(string tableName, out List<Constraint> ReferenceIn, out List<Constraint> ReferenceOut)
-        //        {
-        //            ReferenceOut = new List<Constraint>();
-        //            ReferenceIn = new List<Constraint>();
-
-
-        //            string sql = string.Format(@"select '[' + OBJECT_SCHEMA_NAME(parent_object_id) + '].[' + object_name(parent_object_id) + ']' 'table', object_name(constraint_object_id) 'constraint'
-        // from sys.foreign_key_columns
-        // where referenced_object_id = object_id('{0}') 
-        // 
-        // select '[' + OBJECT_SCHEMA_NAME(referenced_object_id) + '].[' + object_name(referenced_object_id) + ']' 'table', object_name(constraint_object_id) 'constraint'
-        // from sys.foreign_key_columns
-        // where parent_object_id = object_id('{0}') ", tableName);
-
-
-        //            using (var com = con.CreateCommand())
-        //            {
-        //                com.CommandText = sql;
-
-        //                using (var reader = com.ExecuteReader())
-        //                {
-        //                    while (reader.Read())
-        //                        ReferenceIn.Add(new Constraint() { Name = reader.GetString(1), Table = reader.GetString(0) });
-
-        //                    reader.NextResult();
-
-        //                    while (reader.Read())
-        //                        ReferenceOut.Add(new Constraint() { Name = reader.GetString(1), Table = reader.GetString(0) });
-
-        //                    reader.Close();
-        //                }
-
-        //            }
-
-
-        //        }
 
         public void FillDatabase(Server server, Database DataBase, DateTime? sinceDate = null)
         {
