@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DatabaseUtilities.Core.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Commonwealth Bank of Australia")]
+[assembly: AssemblyCompany("Alan Sarli")]
 [assembly: AssemblyProduct("DatabaseUtilities.Core.Tests")]
-[assembly: AssemblyCopyright("Copyright © Commonwealth Bank of Australia 2012")]
+[assembly: AssemblyCopyright("Copyright © Alan Sarli 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<ArrayOfEnvironment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Environment>
+    <Name>Dev</Name>
+    <Connections>
+      <Connection>
+        <Name>sql_1</Name>
+        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+      </Connection>
+      <Connection>
+        <Name>sql_2</Name>
+        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+      </Connection>
+    </Connections>
+  </Environment>
+  <Environment>
+    <Name>test</Name>
+    <Connections>
+      <Connection>
+        <Name>sql_1</Name>
+        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+      </Connection>
+    </Connections>
+  </Environment>
+</ArrayOfEnvironment>

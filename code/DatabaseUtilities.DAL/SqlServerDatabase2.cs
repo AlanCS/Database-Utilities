@@ -5,40 +5,65 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
-using DatabaseUtilities.DAL.Config;
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
 
 namespace DatabaseUtilities.DAL
 {
 
     public partial class SqlServerDatabase2
     {
+        public List<DatabaseUtilities.DAL.Models.Environment> GetEnvironments()
+        {            
+            var environments = new List<DatabaseUtilities.DAL.Models.Environment>();
+
+            if (!File.Exists("connections.xml"))
+                return environments;
+
+            var serializer = new XmlSerializer(environments.GetType());
+            try
+            {
+                var reader = XmlReader.Create("connections.xml");
+                environments = (List<DatabaseUtilities.DAL.Models.Environment>)serializer.Deserialize(reader);
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+
+            return environments;
+        }
+
         public List<Server> GetServers()
         {
-            var conns = ConfigurationManager.GetSection("CustomConnections") as Config.CustomConnectionSection;
             var list = new List<Server>();
 
             var sqlConnection = new SqlConnection();
 
-            foreach (var configConnection in conns.Instances.Cast<MyConfigInstanceElement>())
+            foreach (var environment in GetEnvironments())
             {
-                var connection = new Server() { ServerName = configConnection.Server, Name = configConnection.Name, Environment = configConnection.Environment, Id = configConnection.id };
-
-                sqlConnection.ConnectionString = connection.ConnectionString;
-
-                try
+                foreach (var connection in environment.Connections)
                 {
-                    sqlConnection.Open();
-                    sqlConnection.Close();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
-                    continue; // don't add failing connection to list
-                }
+                    var server = new Server() { ServerName = connection.ConnectionString, Name = connection.Name, Environment = environment.Name, Id = connection.GetHashCode() };
 
-                list.Add(connection);
+                    sqlConnection.ConnectionString = server.ConnectionString;
+
+                    try
+                    {
+                        sqlConnection.Open();
+                        sqlConnection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log(ex);
+                        continue; // don't add failing connection to list
+                    }
+
+                    list.Add(server);
+                }
             }
-
 
             return list;
         }
