@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DatabaseUtilities.DAL
 {
@@ -12,27 +14,66 @@ namespace DatabaseUtilities.DAL
 
         public Snapshot GetFullSnapshot()
         {
+            var watch = Stopwatch.StartNew();
+
             var result = new Snapshot();
 
-            foreach (var server in sqlserver.GetServers())
+            var servers = sqlserver.GetServers();
+
+            var tasks = new List<Task>();
+
+            foreach (var server in servers)
             {
-                foreach (var database in sqlserver.GetDatabases(server))
+                tasks.Add(Task.Factory.StartNew(() =>
                 {
+                    FillServerWithDatabases(server);
+
+                    if (server.Databases.Count > 0) ; // don't add connections with no databases
+                    {
+                        result.Servers.Add(server);
+                    }
+
+                }));
+
+            }
+
+            Task.WaitAll(tasks.ToArray());
+
+            
+
+            result.SnapshotTaken = DateTime.Now;
+
+            watch.Stop();
+
+            Logger.Log(string.Format("{0} servers investigated ({1} databases in total) in {2} seconds",
+                servers.Count,
+                result.Servers.SelectMany(c => c.Databases).Count(),
+                Math.Round(watch.Elapsed.TotalSeconds, 1)));
+
+            return result;
+        }
+
+        private void FillServerWithDatabases(Server server)
+        {
+            var nestedTasks = new List<Task>();
+
+            foreach (var database in sqlserver.GetDatabases(server))
+            {
+                nestedTasks.Add(Task.Factory.StartNew(() =>
+                {
+
                     sqlserver.FillDatabase(server, database);
 
                     // only add if it contains something to see
                     // it might not have anything if user has no permission to read that given database
                     // or the DB is genuinely empty
-                    if(database.Views.Count > 0 || database.Tables.Count > 0 || database.StoredProcedures.Count > 0 ) 
+                    if (database.HasAnyObject)
                         server.Databases.Add(database);
-                }
 
-                if (server.Databases.Count == 0) continue; // don't add connections with no databases
-                result.Servers.Add(server);
+                }, TaskCreationOptions.AttachedToParent));
             }
 
-            result.SnapshotTaken = DateTime.Now;
-            return result;
+            Task.WaitAll(nestedTasks.ToArray());
         }
 
         public void FillSnapshotWithLatestChanges(Snapshot snapshot, DateTime? sinceDate)
@@ -55,6 +96,8 @@ namespace DatabaseUtilities.DAL
 
         public Snapshot GetCachedSnapshot(bool forceRefresh = false)
         {
+
+
             Snapshot snapshot = ApplicationKeeper.Get("LatestSnapshot") as Snapshot;
 
             if (forceRefresh) snapshot = null;
@@ -75,9 +118,9 @@ namespace DatabaseUtilities.DAL
                     {
                         Logger.Log(ex);
                         snapshot = null;
-                    }                    
-                
-                if(snapshot == null)
+                    }
+
+                if (snapshot == null)
                 {
                     snapshot = GetFullSnapshot();
                     try
@@ -95,7 +138,7 @@ namespace DatabaseUtilities.DAL
             else
             {
                 if (ShouldUpdateCachedSnapshot())
-                    lock(this)
+                    lock (this)
                     {
                         if (ShouldUpdateCachedSnapshot())
                         {

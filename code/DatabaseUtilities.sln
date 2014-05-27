@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 13.00
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.Core", "DatabaseUtilities.Core\DatabaseUtilities.Core.csproj", "{C91599C8-03AC-44C1-8213-A80B0C25F772}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseUtilities.UI", "DatabaseUtilities.UI\DatabaseUtilities.UI.csproj", "{1E58D38C-B109-4D2C-8CDB-A035A0413DF6}"

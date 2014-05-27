@@ -44,7 +44,7 @@ namespace DatabaseUtilities.DAL
             var database =  snapshot.Servers.SelectMany(c => c.Databases).SingleOrDefault(c => c.DatabaseServerId == StoredProcedure.DatabaseServerId);
             var server = snapshot.Servers.SingleOrDefault(c => c.Id == database.ServerId);
             
-            using(var con = new SqlConnection(server.ConnectionString))
+            using(var con = new SqlConnection(server.GetTreatedConnectionString()))
             using (var com = con.CreateCommand())
             {
                 com.CommandText = string.Format("[{0}].{1}", database.Name, StoredProcedure.SchemaAndName);

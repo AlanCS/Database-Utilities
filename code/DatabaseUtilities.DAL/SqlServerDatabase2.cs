@@ -46,9 +46,15 @@ namespace DatabaseUtilities.DAL
             {
                 foreach (var connection in environment.Connections)
                 {
-                    var server = new Server() { ServerName = connection.ConnectionString, Name = connection.Name, Environment = environment.Name, Id = connection.GetHashCode() };
+                    var server = new Server() { ConnectionString = connection.ConnectionString, Name = connection.Name, Environment = environment.Name, Id = connection.GetHashCode() };
 
-                    sqlConnection.ConnectionString = server.ConnectionString;
+                    if (list.Any(c=> c.Id == server.Id))
+                    {
+                        Logger.Log(string.Format("Connection is duplicated: {0}", connection.ConnectionString));
+                        continue;
+                    }
+
+                    sqlConnection.ConnectionString = server.GetTreatedConnectionString();
 
                     try
                     {
@@ -57,10 +63,11 @@ namespace DatabaseUtilities.DAL
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Log(ex, sqlConnection.ConnectionString);
                         continue; // don't add failing connection to list
                     }
 
+                    
                     list.Add(server);
                 }
             }
@@ -87,7 +94,7 @@ select database_id,
 from sys.databases db 
 where database_id > 4";
 
-            using (var con = new SqlConnection(connection.ConnectionString))
+            using (var con = new SqlConnection(connection.GetTreatedConnectionString()))
             using (var cmd = con.CreateCommand())
             {
                 cmd.CommandText = sql;
@@ -234,7 +241,7 @@ drop table #temp_items
 ";
             #endregion
 
-            using (var con = new SqlConnection(server.ConnectionString))
+            using (var con = new SqlConnection(server.GetTreatedConnectionString()))
             using (var cmd = con.CreateCommand())
             {
                 cmd.CommandText = string.Format(sql, DataBase.Name);
@@ -248,7 +255,7 @@ drop table #temp_items
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log(ex);
+                        Logger.Log(ex, cmd.Connection.ConnectionString);
                         return;
                     }
                     finally

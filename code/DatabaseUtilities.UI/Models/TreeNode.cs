@@ -148,7 +148,7 @@ namespace DatabaseUtilities.UI.Models
             _name = name;
             _legend = environments.Count() + " environments";
 
-            foreach (var item in environments) this.Children.Add(new EnvironmentNode(item));
+            foreach (var item in environments.OrderBy(c=> c.Name)) this.Children.Add(new EnvironmentNode(item));
         }
 
         public string Name
@@ -176,7 +176,7 @@ namespace DatabaseUtilities.UI.Models
         {
             _environment = environment;
 
-            foreach (var item in environment.Servers) this.Children.Add(new ServerNode(item));
+            foreach (var item in environment.Servers.OrderBy(c=> c.Name)) this.Children.Add(new ServerNode(item));
         }
 
         public string Name
@@ -202,7 +202,7 @@ namespace DatabaseUtilities.UI.Models
         public ServerNode(DAL.Server server)
         {
             _server = server;
-            foreach (var item in _server.Databases) this.Children.Add(new DatabaseNode(item));
+            foreach (var item in _server.Databases.OrderBy(c=> c.Name)) this.Children.Add(new DatabaseNode(item));
         }
 
         public string Name

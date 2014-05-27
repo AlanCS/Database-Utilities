@@ -15,14 +15,11 @@ namespace DatabaseUtilities.DAL
         public int Id { get; set; }
         public string Environment { get; set; }
         public string Name { get; set; }
-        public string ServerName { get; set; }
+        public string ConnectionString { get; set; }
 
-        public string ConnectionString
+        public string GetTreatedConnectionString()
         {
-            get
-            {
-                return string.Format("Data Source={0};Integrated Security=True", ServerName);
-            }
+            return ConnectionString;
         }
 
         public List<Database> Databases { get; set; }

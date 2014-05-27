@@ -53,6 +53,11 @@ namespace DatabaseUtilities.DAL
         [DataMember]
         public List<View> Views { get; set; }
 
+        public bool HasAnyObject
+        {
+            get { return StoredProcedures.Count > 0 || Tables.Count > 0 || Views.Count > 0; }
+        }
+
         public override string ToString()
         {
             return Name;

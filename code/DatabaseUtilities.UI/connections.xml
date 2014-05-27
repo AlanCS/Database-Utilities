@@ -5,11 +5,11 @@
     <Connections>
       <Connection>
         <Name>sql_1</Name>
-        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+        <ConnectionString>Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
       </Connection>
       <Connection>
         <Name>sql_2</Name>
-        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+        <ConnectionString>Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
       </Connection>
     </Connections>
   </Environment>
@@ -18,7 +18,7 @@
     <Connections>
       <Connection>
         <Name>sql_1</Name>
-        <ConnectionString>Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
+        <ConnectionString>Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=AdventureWorks;Data Source=.</ConnectionString>
       </Connection>
     </Connections>
   </Environment>

@@ -457,14 +457,9 @@ namespace DatabaseUtilities.Core
             code.AppendLine("go");
             code.Append(procedure.Text);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
-            code.Append("--exec " + GenerateCodeForStoredProcedureCall(procedure));
+            code.Append("--exec " + procedure.FormattedSchemaAndName + " " + string.Join(",", procedure.Columns.Select(c => c.GetSampleValue(true))));
 
             return code.ToString();
-        }
-
-        public string GenerateCodeForStoredProcedureCall(DAL.StoredProcedure procedure)
-        {
-            return "exec " + procedure.FormattedSchemaAndName + " " + string.Join(",", procedure.Columns.Select(c => c.GetSampleValue(true)));
         }
 
         public string GenerateCodeForStoredProcedure(string SelectedStoredProcedure)

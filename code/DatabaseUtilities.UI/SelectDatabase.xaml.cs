@@ -50,7 +50,11 @@ namespace DatabaseUtilities.UI
 
         public List<Models.BaseTreeNode> GetDatabasesTree()
         {
-            var environments = Global.Snapshot.Servers.GroupBy(c => c.Environment).Select(c => new Models.Environment(c.Key, c)).ToArray();
+            var environments = Global.Snapshot.Servers
+                .GroupBy(c => c.Environment)
+                .Select(c => new Models.Environment(c.Key, c))
+                .OrderBy(c=> c.Name)
+                .ToArray();
 
             var root = new List<Models.BaseTreeNode>();
             root.Add(new Models.GenericNode("All Environments", environments));

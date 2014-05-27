@@ -22,6 +22,7 @@ using System.Windows.Threading;
 using System.Text.RegularExpressions;
 using Xceed.Wpf.Toolkit;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace DatabaseUtilities.UI
 {
@@ -267,10 +268,20 @@ namespace DatabaseUtilities.UI
         {
             var file = System.IO.Path.Combine(System.Environment.CurrentDirectory, "settings") + @"\query.sql";
 
-            if(string.IsNullOrEmpty(txtTable2.SelectedText))             
-                File.WriteAllText(file, txtTable2.Text);
-            else
-                File.WriteAllText(file, txtTable2.SelectedText);
+            if (LastSelectedObject.Object != null)
+            {
+                if (LastSelectedObject.Object is DatabaseUtilities.DAL.StoredProcedure)
+                {
+                    File.WriteAllText(file, new SqlServerCore().GenerateCodeForStoredProcedureCall(LastSelectedStoredProcedure));
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(txtTable2.SelectedText))
+                        File.WriteAllText(file, txtTable2.Text);
+                    else
+                        File.WriteAllText(file, txtTable2.SelectedText);
+                }
+            }
 
             OpenSQLServer(file);
 
@@ -521,7 +532,9 @@ namespace DatabaseUtilities.UI
                 return;
             }
 
-            var parameter = string.Format("-S {0} -d {1}", LastSelectedServer.ServerName, LastSelectedDatabase.Name);
+            var connection = new SqlConnectionStringBuilder(LastSelectedServer.ConnectionString);
+
+            var parameter = string.Format("-S {0} -d {1}", connection.DataSource, LastSelectedDatabase.Name);
             if(filePath != string.Empty)
                 parameter = string.Format(@"""{0}"" {1}", filePath, parameter);
 
