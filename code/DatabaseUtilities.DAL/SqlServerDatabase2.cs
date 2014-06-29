@@ -48,12 +48,6 @@ namespace DatabaseUtilities.DAL
                 {
                     var server = new Server() { ConnectionString = connection.ConnectionString, Name = connection.Name, Environment = environment.Name, Id = connection.GetHashCode() };
 
-                    if (list.Any(c=> c.Id == server.Id))
-                    {
-                        Logger.Log(string.Format("Connection is duplicated: {0}", connection.ConnectionString));
-                        continue;
-                    }
-
                     sqlConnection.ConnectionString = server.GetTreatedConnectionString();
 
                     try
@@ -67,7 +61,6 @@ namespace DatabaseUtilities.DAL
                         continue; // don't add failing connection to list
                     }
 
-                    
                     list.Add(server);
                 }
             }

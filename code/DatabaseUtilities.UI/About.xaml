@@ -33,5 +33,11 @@
             <Image Source="/DatabaseUtilities;component/Images/linkedin.png" Margin="5 0 0 0" />
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+            <TextBlock TextWrapping="Wrap" x:Name="txtVersion">
+            Version: [version] (compiled at [compiledate])
+            </TextBlock>
+        </StackPanel>
+
     </StackPanel>
 </Window>

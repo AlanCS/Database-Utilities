@@ -296,7 +296,7 @@ namespace DatabaseUtilities.Core
             code.Append(Environment.NewLine + "   select @@identity");
             code.Append(Environment.NewLine + "   end");
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
-            code.Append("--exec " + SP + " " + string.Join(",", table.Columns.Select(c => c.GetSampleValue(true))));
+            code.Append("--exec " + SP + " " + string.Join(", ", table.Columns.Select(c => "@" + c.GetSampleValue(true))));
 
             return code.ToString();
         }
@@ -385,7 +385,7 @@ namespace DatabaseUtilities.Core
             if (primaryKeys.Count() > 0)
                 code.Append("where " + string.Join(" and " + Environment.NewLine, primaryKeys.Select(c => initials + "." + c.Name + " = @" + c.Name)) + Environment.NewLine);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
-            code.Append("--exec " + SP + " " + string.Join(",", primaryKeys.Select(c => c.GetSampleValue(true))));
+            code.Append("--exec " + SP + " " + string.Join(", ", primaryKeys.Select(c => c.GetSampleValue(true))));
 
             return code.ToString();
         }
@@ -412,7 +412,7 @@ namespace DatabaseUtilities.Core
             if (primaryKeys.Count() > 0)
                 code.Append("where " + string.Join(" and " + Environment.NewLine, primaryKeys.Select(c => initials + "." + c.Name + " = @" + c.Name)) + Environment.NewLine);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
-            code.Append("--exec " + SP + " " + string.Join(",", primaryKeys.Select(c => c.GetSampleValue(true))));
+            code.Append("--exec " + SP + " " + string.Join(", ", primaryKeys.Select(c => c.GetSampleValue(true))));
 
             return code.ToString();
         }
@@ -457,14 +457,14 @@ namespace DatabaseUtilities.Core
             code.AppendLine("go");
             code.Append(procedure.Text);
             code.Append(Environment.NewLine + "go" + Environment.NewLine);
-            code.Append("--exec " + GenerateCodeForStoredProcedureCall(procedure));
+            code.Append("--" + GenerateCodeForStoredProcedureCall(procedure));
 
             return code.ToString();
         }
 
         public string GenerateCodeForStoredProcedureCall(DAL.StoredProcedure procedure)
         {
-            return "exec " + procedure.FormattedSchemaAndName + " " + string.Join(",", procedure.Columns.Select(c => c.GetSampleValue(true)));
+            return "exec " + procedure.FormattedSchemaAndName + " " + string.Join(", ", procedure.Columns.Select(c => c.GetSampleValue(true)));
         }
 
         public string GenerateCodeForStoredProcedure(string SelectedStoredProcedure)
@@ -491,7 +491,7 @@ namespace DatabaseUtilities.Core
             code.Append(String.Format("   drop proc {0}{1}go{1}", SelectedStoredProcedure, Environment.NewLine));
             code.Append(spText);
             code.Append(String.Format("{0}go{0}", Environment.NewLine));
-            code.Append("--exec " + SelectedStoredProcedure + " " + string.Join(",", CurrentObjectColumns.Select(c => c.GetSampleValue(true))));
+            code.Append("--exec " + SelectedStoredProcedure + " " + string.Join(", ", CurrentObjectColumns.Select(c => c.GetSampleValue(true))));
             code.Append(String.Format("{0}go{0}", Environment.NewLine));
 
             var output = code.ToString();

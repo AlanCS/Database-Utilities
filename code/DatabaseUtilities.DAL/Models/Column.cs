@@ -29,20 +29,21 @@ namespace DatabaseUtilities.DAL
 
         public string GetSampleValue(bool WithAmpers)
         {
+            string value = "1";
+
             if (this.Type.Contains("char"))
                 if (WithAmpers)
-                    return "'abc'";
+                    value = "'abc'";
                 else
-                    return "abc";
+                    value = "abc";
 
             if (this.Type.Contains("date"))
                 if (WithAmpers)
-                    return "'2011-01-07'";
+                    value = "'" + DateTime.Now.ToString("yyyy-MM-dd") + "'";
                 else
-                    return "2011-01-07";
+                    value = DateTime.Now.ToString("yyyy-MM-dd");
 
-
-            return "1";
+            return string.Format("{0} = {1}", this.Name,  value);
         }
 
         public string ToSQL()

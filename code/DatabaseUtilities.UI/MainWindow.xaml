@@ -33,6 +33,7 @@
 
             <MenuItem Header="_About">
                 <MenuItem Header="_Connections" x:Name="Menu_Connections" Click="Menu_Connections_Click"  />
+                <MenuItem Header="_Folder" x:Name="Menu_Folder" Click="Menu_Folder_Click" />
                 <MenuItem Header="_License" x:Name="Menu_License" Click="Menu_License_Click"  />
                 <MenuItem Header="_About" x:Name="Menu_About" Click="Menu_About_Click" />
              </MenuItem>

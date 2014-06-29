@@ -22,11 +22,19 @@ namespace DatabaseUtilities.UI
         public About()
         {
             InitializeComponent();
+            this.Loaded += About_Loaded;
+        }
+
+        void About_Loaded(object sender, RoutedEventArgs e)
+        {
+            string version = "1.2.0.0";
+            string compileDate = System.IO.File.GetLastWriteTime(System.Reflection.Assembly.GetExecutingAssembly().Location).ToString();
+
+            txtVersion.Text = txtVersion.Text.Replace("[version]", version).Replace("[compiledate]", compileDate);
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-
             string navigateUri = ((Hyperlink)sender).NavigateUri.ToString();
             // if the URI somehow came from an untrusted source, make sure to
             // validate it before calling Process.Start(), e.g. check to see

@@ -558,6 +558,11 @@ namespace DatabaseUtilities.UI
             Process.Start("connections.xml");
         }
 
+        private void Menu_Folder_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(System.Environment.CurrentDirectory);
+        }
+
     }
 
 
