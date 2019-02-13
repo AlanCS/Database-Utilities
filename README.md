@@ -1,7 +1,7 @@
-Database-Utilities
+# Database-Utilities
 ==================
 
-Helper that saves you time in managing your SQL Server database (2000, 2005, 2008, 2012) and developing to it.
+Standalone software that saves you time by allowing advanced searches and some code generation for SQL Servers 2000, 2005, 2008, 2012.
 
 Take a look at the quick tour in the video "tour.mp4"
 
@@ -17,6 +17,6 @@ You can:
 
 Developed using Visual Studio 2010 in C# (.NET 4), using unit tests (with Rhino Mocks), MVVM, Dependency Injection and WPF.
 
-I look forward for comments, suggestions, etc.
+## As of Jan/2019, this code is severely out of date, but still usable. **Any PRs updating it would be greatly appreciated.**
 
 * The exact terms of our license (BSD), can be found on "license.txt"
